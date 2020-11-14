@@ -22,7 +22,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="測試用任意輸入即可登入" />
+            android:text="測試用帳號密碼皆為123" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginTitle"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:endIconMode="clear_text"
-            app:helperText="6~12英數字"
+            app:helperText="3~6英數字"
             app:startIconDrawable="@drawable/account">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:endIconMode="password_toggle"
-            app:helperText="6~12英數字"
+            app:helperText="3~6英數字"
             app:startIconDrawable="@drawable/password"
             app:error="@{viewModel.passwordError}"
             app:errorEnabled="true"

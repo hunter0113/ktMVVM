@@ -11,6 +11,7 @@ class LoginViewModel :ViewModel(){
     var loginIdError: MutableLiveData<String> = MutableLiveData()
     var passwordError: MutableLiveData<String> = MutableLiveData()
 
+    //事件
     var snackBarText: MutableLiveData<Event<String>> = MutableLiveData()
 
     //載入中
@@ -52,8 +53,10 @@ class LoginViewModel :ViewModel(){
                     override fun loginResult(isLoginSuccess: Boolean) {
                         loginSuccess.value = isLoginSuccess
                         isLoading.value = false
-
-                        snackBarText.value = Event("登入成功")
+                        if(isLoginSuccess)
+                            snackBarText.value = Event("登入成功")
+                        else
+                            snackBarText.value = Event("登入失敗")
                     }
 
                 })

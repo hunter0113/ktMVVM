@@ -1,6 +1,7 @@
 package com.user.kt_mvvm.login
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -10,7 +11,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.user.kt_mvvm.R
 import com.user.kt_mvvm.databinding.ActivityLoginBinding
+import com.user.kt_mvvm.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.MainScope
 
 
 class LoginActivity : AppCompatActivity() {
@@ -21,20 +25,43 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //透過ViewModelProvider建立LoginViewModel的viewModel，ViewModelFactory()可帶參數
         viewModel =
             ViewModelProvider(this, ViewModelFactory()).get(LoginViewModel::class.java)
 
-        val dataBinding =
+        //此Binding代表view中的data<>
+        val Binding =
             DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
-        dataBinding.viewModel = viewModel
 
-        dataBinding.lifecycleOwner = this
+        //將view與LoginViewModel的viewmodel連接
+        Binding.viewModel = viewModel
 
+        //加上這行才會自動更新
+        Binding.lifecycleOwner = this
+
+        //出現提示bar
         setupSnackBar()
+        //出現異常
+        loginErrorObserve()
+        //登入成功後跳轉到首頁
+        loginSucessObserve()
 
-        viewModel.loginError.observe(this, Observer {event ->
+    }
+
+    private fun setupSnackBar() {
+        //當事件改變時(帳密空白，登入成功失敗...)，出現提示
+        viewModel.snackBarText.observe(this, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 val snackBarText = it
+                Snackbar.make(layoutView, snackBarText, Snackbar.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun loginErrorObserve(){
+        viewModel.loginError.observe(this, Observer {event ->
+            event.getContentIfNotHandled()?.let {
+                //val snackBarText = it
                 MaterialAlertDialogBuilder(this)
                     .setMessage("系統異常")
                     .setPositiveButton("重試") { _: DialogInterface?, _: Int ->
@@ -46,14 +73,15 @@ class LoginActivity : AppCompatActivity() {
                     .show()
             }
         })
-
     }
 
-    private fun setupSnackBar() {
-        viewModel.snackBarText.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let {
-                val snackBarText = it
-                Snackbar.make(layoutView, snackBarText, Snackbar.LENGTH_LONG).show()
+    private fun loginSucessObserve() {
+        //當事件改變時(帳密空白，登入成功失敗...)，出現提示
+        viewModel.loginSuccess.observe(this, Observer {
+            val login = it
+            if(login){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         })
     }
