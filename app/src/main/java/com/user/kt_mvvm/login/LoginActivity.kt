@@ -18,14 +18,14 @@ import kotlinx.coroutines.MainScope
 
 
 class LoginActivity : AppCompatActivity() {
-
+    //建立LoginViewModel的viewmodel物件
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        //透過ViewModelProvider建立LoginViewModel的viewModel，ViewModelFactory()可帶參數
+        //透過ViewModelProvider指派LoginViewModel的viewModel，ViewModelFactory()可帶參數
         viewModel =
             ViewModelProvider(this, ViewModelFactory()).get(LoginViewModel::class.java)
 
@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
 
         //將view與LoginViewModel的viewmodel連接
         Binding.viewModel = viewModel
-
         //加上這行才會自動更新
         Binding.lifecycleOwner = this
 
@@ -63,12 +62,11 @@ class LoginActivity : AppCompatActivity() {
             event.getContentIfNotHandled()?.let {
                 //val snackBarText = it
                 MaterialAlertDialogBuilder(this)
-                    .setMessage("系統異常")
+                    .setMessage("系統異常，請稍後再試")
                     .setPositiveButton("重試") { _: DialogInterface?, _: Int ->
                         viewModel.login()
                     }
                     .setNegativeButton("確定") { _, _ ->
-
                     }
                     .show()
             }

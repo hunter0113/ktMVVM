@@ -41,6 +41,12 @@ class LoginViewModel :ViewModel(){
 
                 return
             }
+            if(currentLoginId.length<3 || currentLoginId.length>6 || currentPassword.length<3 || currentPassword.length>6){
+                snackBarText.value = Event("長度介於3到6之間")
+                loginIdError.value = "長度介於3到6之間"
+                return
+                return
+            }
 
             val loginRepository = LoginRepository()
 
