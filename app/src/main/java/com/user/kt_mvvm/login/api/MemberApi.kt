@@ -9,5 +9,5 @@ import retrofit2.http.POST
 interface MemberApi {
     @POST(ApiConfig.loginUrl)
     fun login(@Body request: LoginRequest): Call<LoginResponse>
-
+    
 }
