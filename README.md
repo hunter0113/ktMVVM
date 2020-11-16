@@ -4,9 +4,9 @@
 
 - 採用Material Design設計登入頁面
 - 使用以下Architecture Components
-· DataBinding
-· LiveData
-· ViewModel
+- DataBinding
+- LiveData
+- ViewModel
 
 
 
