@@ -20,6 +20,9 @@ class LoginViewModel :ViewModel(){
     //登入的系統錯誤
     var loginError: MutableLiveData<Event<String>> = MutableLiveData()
 
+    //api登入成功後的memberId與name
+    var userIdName: MutableLiveData<Array<String>> = MutableLiveData()
+
     fun login() {
         try {
             loginIdError.value = ""
@@ -45,7 +48,6 @@ class LoginViewModel :ViewModel(){
                 snackBarText.value = Event("長度介於3到6之間")
                 loginIdError.value = "長度介於3到6之間"
                 return
-                return
             }
 
             val loginRepository = LoginRepository()
@@ -56,11 +58,12 @@ class LoginViewModel :ViewModel(){
                 currentLoginId,
                 currentPassword,
                 object : LoginRepository.LoginCallback {
-                    override fun loginResult(isLoginSuccess: Boolean) {
+                    override fun loginResult(isLoginSuccess: Boolean, memberId:String, name:String) {
                         loginSuccess.value = isLoginSuccess
                         isLoading.value = false
-                        if(isLoginSuccess)
-                            snackBarText.value = Event("登入成功")
+                        if(isLoginSuccess){
+                            userIdName.value= arrayOf(memberId,name)
+                        }
                         else
                             snackBarText.value = Event("登入失敗")
                     }

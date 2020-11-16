@@ -11,7 +11,8 @@ import retrofit2.Callback
 
 class LoginRepository : ILoginRepository {
     interface LoginCallback {
-        fun loginResult(isLoginSuccess: Boolean)
+        //回傳登入是否成功與id與username
+        fun loginResult(isLoginSuccess: Boolean, memberId:String, name:String)
     }
 
     override fun login(loginId: String, password: String, loginCallback: LoginCallback) {
@@ -28,7 +29,7 @@ class LoginRepository : ILoginRepository {
                     val loginResponse = response.body()!!
 
                     println("id:${loginResponse.memberId}, name:${loginResponse.name}")
-                    loginCallback.loginResult(response.body()!!.isLoginSuccess)
+                    loginCallback.loginResult(response.body()!!.isLoginSuccess,loginResponse.memberId,loginResponse.name)
                 }
             }
 

@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -75,10 +76,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginSucessObserve() {
         //當事件改變時(帳密空白，登入成功失敗...)，出現提示
-        viewModel.loginSuccess.observe(this, Observer {
-            val login = it
-            if(login){
-                val intent = Intent(this, MainActivity::class.java)
+        viewModel.userIdName.observe(this, Observer {
+            val userIdName = it
+            if(userIdName.isNotEmpty()){
+                var intent = Intent(this, MainActivity::class.java)
+                var bundle = Bundle()
+                bundle.putStringArray("keyIdName",userIdName)
+                intent.putExtra("bundle",bundle)
                 startActivity(intent)
             }
         })
