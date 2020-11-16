@@ -13,7 +13,7 @@ object ApiConfig {
     const val TIME_OUT_READ = 30
     const val TIME_OUT_WRITE = 30
 
-    const val loginUrl = "https://run.mocky.io/v3/8b9b22ce-0f85-4886-89b9-a778fa446aa6"
+    const val loginUrl = "https://run.mocky.io/v3/0be18f07-62a6-41f3-b76c-8a3acf6fa41a"
 }
 
 class NetworkService {
