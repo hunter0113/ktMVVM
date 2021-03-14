@@ -10,16 +10,13 @@ class ViewModelFactory() : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel() as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
-
-class MainViewModelFactory(private val defaultId:String, private val defaultName:String) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(defaultId,defaultName) as T
+            return MainViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
 }
+
+
+
+
