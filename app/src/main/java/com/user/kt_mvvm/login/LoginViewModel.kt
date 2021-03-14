@@ -54,6 +54,7 @@ class LoginViewModel :ViewModel(){
 
             isLoading.value = true
 
+            //使用Callback的方式實作LoginRepository.LoginCallback這個interface，並override其中的loginResult方法
             loginRepository.login(
                 currentLoginId,
                 currentPassword,

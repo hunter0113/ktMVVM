@@ -14,8 +14,6 @@ import com.user.kt_mvvm.R
 import com.user.kt_mvvm.databinding.ActivityLoginBinding
 import com.user.kt_mvvm.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.MainScope
 
 
 class LoginActivity : AppCompatActivity() {

@@ -19,7 +19,7 @@ class LoginRepository : ILoginRepository {
 
         val networkServiceApi = NetworkService()
         val request = LoginRequest(loginId, password)
-
+        //enqueue非同步
         networkServiceApi.memberAPI.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 //success
